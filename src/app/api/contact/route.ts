@@ -27,7 +27,7 @@ export async function POST(req: NextRequest) {
             await transporter.sendMail({
                 from: `"AS204604 NOC Form" <${smtpUser}>`,
                 replyTo: email,
-                to: 'noc@AS204604.net',
+                to: 'noc@AS204604.de',
                 subject: `[AS204604] ${type.toUpperCase()} von ${name}${asn ? ` (${asn})` : ''}`,
                 text: [
                     `Name:    ${name}`,
