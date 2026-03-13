@@ -1,40 +1,40 @@
 @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600&display=swap');
 
 :root {
-  --bg:       #050810;
-  --bg2:      #080d18;
-  --panel:    #0b1120;
-  --border:   #1a2d4a;
-  --accent:   #00d4ff;
-  --accent2:  #0066ff;
-  --accent3:  #00ff88;
-  --warn:     #ff6b00;
-  --text:     #c8d8f0;
-  --muted:    #4a6080;
-  --glow:     rgba(0, 212, 255, 0.15);
+    --bg:       #050810;
+    --bg2:      #080d18;
+    --panel:    #0b1120;
+    --border:   #1a2d4a;
+    --accent:   #00d4ff;
+    --accent2:  #0066ff;
+    --accent3:  #00ff88;
+    --warn:     #ff6b00;
+    --text:     #c8d8f0;
+    --muted:    #4a6080;
+    --glow:     rgba(0, 212, 255, 0.15);
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
 
 body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: 'Exo 2', sans-serif;
-  font-weight: 300;
-  overflow-x: hidden;
-  cursor: none;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Exo 2', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+    cursor: none;
 }
 
 /* Scanlines */
 body::before {
-  content: '';
-  position: fixed; inset: 0; z-index: 1000;
-  background: repeating-linear-gradient(
-          0deg, transparent, transparent 2px,
-          rgba(0,0,0,.07) 2px, rgba(0,0,0,.07) 4px
-  );
-  pointer-events: none;
+    content: '';
+    position: fixed; inset: 0; z-index: 1000;
+    background: repeating-linear-gradient(
+            0deg, transparent, transparent 2px,
+            rgba(0,0,0,.07) 2px, rgba(0,0,0,.07) 4px
+    );
+    pointer-events: none;
 }
 
 /* Scrollbar */
