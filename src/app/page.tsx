@@ -1,4 +1,5 @@
 import Cursor from "@/components/Cursor";
+import Background from "@/components/Background";
 
 
 export default function Home() {
@@ -8,6 +9,7 @@ export default function Home() {
         <>
 
             <Cursor />
+            <Background />
 
             <p>Hey, cooming soon</p>
 
