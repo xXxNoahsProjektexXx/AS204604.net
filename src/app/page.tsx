@@ -1,3 +1,4 @@
+import Cursor from "@/components/Cursor";
 
 
 export default function Home() {
@@ -6,6 +7,7 @@ export default function Home() {
 
         <>
 
+            <Cursor />
 
             <p>Hey, cooming soon</p>
 
