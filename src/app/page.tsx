@@ -1,5 +1,6 @@
 import Cursor from "@/components/Cursor";
 import Background from "@/components/Background";
+import Footer from "@/components/Footer";
 
 
 export default function Home() {
@@ -12,6 +13,8 @@ export default function Home() {
             <Background />
 
             <p>Hey, cooming soon</p>
+
+            <Footer />
 
         </>
 
