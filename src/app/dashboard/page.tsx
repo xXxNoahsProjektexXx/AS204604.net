@@ -58,7 +58,7 @@ function Card({icon,label,value}:any){
             </h2>
 
             <p className="text-3xl font-bold">
-                {value}
+                {value}bra
             </p>
 
         </motion.div>
