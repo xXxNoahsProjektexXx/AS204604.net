@@ -7,7 +7,7 @@ export async function GET() {
             name: "core-router-1",
             location: "Vienna",
             status: "online",
-            load: 23
+            load: 15
         },
         {
             name: "vps-node-1",

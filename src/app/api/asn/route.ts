@@ -4,10 +4,10 @@ export async function GET() {
 
     const stats = {
         asn: 204604,
-        prefixes: 12,
+        prefixes: 5,
         peers: 6,
         upstreams: 2,
-        ipv4: 256,
+        ipv4: 0,
         ipv6: 1024
     }
 
