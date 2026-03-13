@@ -31,7 +31,7 @@ export default function Footer() {
                     {[
                         { label: 'RIPE DB',   href: 'https://apps.db.ripe.net/db-web-ui/query?searchtext=AS204604' },
                         { label: 'PeeringDB', href: 'https://www.peeringdb.com' },
-                        { label: 'NOC',       href: 'mailto:noc@AS204604.net' },
+                        { label: 'NOC',       href: 'mailto:noc@as204604.de' },
                     ].map(({ label, href }) => (
                         <a
                             key={label}

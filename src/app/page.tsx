@@ -12,7 +12,6 @@ export default function Home() {
             <Cursor />
             <Background />
 
-            <p>Hey, cooming soon</p>
 
             <Footer />
 
