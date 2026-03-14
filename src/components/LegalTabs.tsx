@@ -11,9 +11,12 @@ export default function LegalTabs() {
                 <h2 className="text-2xl font-semibold">Impressum</h2>
                 <p><strong>Betreiber:</strong> AS204604 Network Services</p>
                 <p><strong>Adresse:</strong> Leo-Mathauser-Gasse 72, 1230 Wien, Österreich</p>
+                <p className="text-sm text-red-400">
+                    Hinweis: Privatpakete werden an dieser Adresse nicht entgegengenommen.
+                </p>
                 <p><strong>Telefon:</strong> +43 670 7019622</p>
                 <p><strong>Email:</strong> noc@as204604.de</p>
-                
+
                 <p>
                     Haftungshinweis: Trotz sorgfältiger inhaltlicher Kontrolle übernehmen wir keine Haftung für Inhalte externer Links.
                 </p>
