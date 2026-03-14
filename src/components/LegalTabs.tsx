@@ -5,10 +5,15 @@ import { motion, AnimatePresence } from "framer-motion"
 export default function LegalTabs() {
     const [tab, setTab] = useState<"impressum"|"privacy">("impressum")
 
+    const tabs = [
+        { id: "impressum", label: "Impressum" },
+        { id: "privacy", label: "Privacy / Datenschutz" }
+    ]
+
     const tabContent = {
         impressum: (
-            <div className="space-y-2 text-gray-300">
-                <h2 className="text-2xl font-semibold">Impressum</h2>
+            <div className="space-y-3 text-gray-300">
+                <h2 className="text-2xl font-semibold text-white">Impressum</h2>
                 <p><strong>Betreiber:</strong> AS204604 Network Services</p>
                 <p><strong>Adresse:</strong> Leo-Mathauser-Gasse 72, 1230 Wien, Österreich</p>
                 <p className="text-sm text-red-400">
@@ -17,14 +22,14 @@ export default function LegalTabs() {
                 <p><strong>Telefon:</strong> +43 670 7019622</p>
                 <p><strong>Email:</strong> noc@as204604.de</p>
 
-                <p>
+                <p className="text-sm text-gray-400">
                     Haftungshinweis: Trotz sorgfältiger inhaltlicher Kontrolle übernehmen wir keine Haftung für Inhalte externer Links.
                 </p>
             </div>
         ),
         privacy: (
-            <div className="space-y-2 text-gray-300">
-                <h2 className="text-2xl font-semibold">Datenschutz / Privacy Policy</h2>
+            <div className="space-y-3 text-gray-300">
+                <h2 className="text-2xl font-semibold text-white">Datenschutz / Privacy Policy</h2>
                 <p>
                     Wir nehmen den Schutz Ihrer persönlichen Daten sehr ernst. Alle Daten werden gemäß DSGVO verarbeitet.
                 </p>
@@ -38,39 +43,52 @@ export default function LegalTabs() {
     }
 
     return (
-        <div className="max-w-3xl mx-auto p-6 space-y-4">
+        <div className="max-w-3xl mx-auto p-6">
+
             {/* Tabs */}
-            <div className="flex gap-4 border-b border-zinc-800 mb-6">
-                <button
-                    className={`px-4 py-2 font-medium ${
-                        tab==="impressum" ? "border-b-2 border-blue-400 text-blue-400" : "text-gray-400"
-                    }`}
-                    onClick={()=>setTab("impressum")}
-                >
-                    Impressum
-                </button>
-                <button
-                    className={`px-4 py-2 font-medium ${
-                        tab==="privacy" ? "border-b-2 border-blue-400 text-blue-400" : "text-gray-400"
-                    }`}
-                    onClick={()=>setTab("privacy")}
-                >
-                    Privacy / Datenschutz
-                </button>
+            <div className="flex justify-center mb-8">
+                <div className="relative flex bg-zinc-900/60 backdrop-blur p-1 rounded-xl border border-zinc-800">
+                    {tabs.map((t) => {
+                        const active = tab === t.id
+                        return (
+                            <button
+                                key={t.id}
+                                onClick={() => setTab(t.id as any)}
+                                className="relative px-5 py-2 text-sm font-medium z-10"
+                            >
+                                {active && (
+                                    <motion.div
+                                        layoutId="tab-indicator"
+                                        className="absolute inset-0 bg-blue-500/20 rounded-lg border border-blue-400/40"
+                                        transition={{ type: "spring", duration: 0.5 }}
+                                    />
+                                )}
+
+                                <span className={`relative ${active ? "text-white" : "text-gray-400 hover:text-gray-200"}`}>
+                                    {t.label}
+                                </span>
+                            </button>
+                        )
+                    })}
+                </div>
             </div>
 
-            {/* Animated Content */}
-            <AnimatePresence mode="wait">
-                <motion.div
-                    key={tab}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -20 }}
-                    transition={{ duration: 0.3 }}
-                >
-                    {tabContent[tab]}
-                </motion.div>
-            </AnimatePresence>
+            {/* Content */}
+            <div className="relative">
+                <AnimatePresence mode="wait">
+                    <motion.div
+                        key={tab}
+                        initial={{ opacity: 0, y: 15 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -15 }}
+                        transition={{ duration: 0.25 }}
+                        className="bg-zinc-900/60 backdrop-blur border border-zinc-800 rounded-xl p-6 shadow-xl"
+                    >
+                        {tabContent[tab]}
+                    </motion.div>
+                </AnimatePresence>
+            </div>
+
         </div>
     )
 }
