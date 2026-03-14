@@ -13,11 +13,12 @@ export default function SubnetCalculator() {
         try {
             setError("")
             let [ip, mask] = input.split("/")
-            mask = parseInt(mask)
+            mask = String(parseInt(mask))
             if(!ipaddr.isValid(ip)) throw new Error("Invalid IP")
 
             const addr = ipaddr.parse(ip)
             if(addr.kind() === "ipv4") {
+                // @ts-ignore
                 const network = ipaddr.parse(ip).mask(mask)
                 const broadcast = addr.range()[1] || "N/A"
                 setResult({ network: network.toString(), mask, broadcast })
