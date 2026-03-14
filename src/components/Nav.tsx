@@ -1,25 +1,72 @@
 "use client"
 import Link from "next/link"
+import { usePathname } from "next/navigation"
 import { Home, Globe, Activity, FileText } from "lucide-react"
+import { motion } from "framer-motion"
 
 export default function Nav() {
+    const pathname = usePathname()
+
+    const links = [
+        { href: "/dashboard", label: "Dashboard", icon: Globe },
+        { href: "/status", label: "Status", icon: Activity },
+        { href: "/legal", label: "Legal", icon: FileText }
+    ]
+
     return (
-        <nav className="flex justify-between items-center px-10 py-4 border-b border-zinc-800 sticky top-0 bg-black/80 backdrop-blur-md z-50">
+        <nav className="sticky top-0 z-50 backdrop-blur-xl bg-black/70 border-b border-zinc-800">
+            <div className="max-w-6xl mx-auto flex items-center justify-between px-8 py-4">
 
-            <Link href="/" className="flex items-center gap-2 font-bold text-xl">
-                <Home size={24} /> AS204604
-            </Link>
+                {/* Logo */}
+                <Link
+                    href="/"
+                    className="flex items-center gap-2 font-semibold text-lg text-white hover:text-blue-400 transition"
+                >
+                    <Home size={22} />
+                    AS204604
+                </Link>
 
-            <div className="flex gap-6">
-                <Link href="/dashboard" className="hover:text-blue-400 flex items-center gap-1">
-                    <Globe size={18} /> Dashboard
-                </Link>
-                <Link href="/status" className="hover:text-blue-400 flex items-center gap-1">
-                    <Activity size={18} /> Status
-                </Link>
-                <Link href="/legal" className="hover:text-blue-400 flex items-center gap-1">
-                    <FileText size={18} /> Legal
-                </Link>
+                {/* Navigation */}
+                <div className="flex items-center gap-2 bg-zinc-900/60 p-1 rounded-xl border border-zinc-800">
+
+                    {links.map((link) => {
+                        const Icon = link.icon
+                        const active = pathname.startsWith(link.href)
+
+                        return (
+                            <Link
+                                key={link.href}
+                                href={link.href}
+                                className="relative px-4 py-2 rounded-lg flex items-center gap-2 text-sm font-medium"
+                            >
+                                {active && (
+                                    <motion.div
+                                        layoutId="navbar-active"
+                                        className="absolute inset-0 bg-blue-500/15 border border-blue-400/40 rounded-lg"
+                                        transition={{ type: "spring", duration: 0.5 }}
+                                    />
+                                )}
+
+                                <Icon
+                                    size={16}
+                                    className={`relative ${
+                                        active ? "text-blue-400" : "text-gray-400"
+                                    }`}
+                                />
+
+                                <span
+                                    className={`relative ${
+                                        active
+                                            ? "text-white"
+                                            : "text-gray-400 hover:text-gray-200"
+                                    }`}
+                                >
+                                    {link.label}
+                                </span>
+                            </Link>
+                        )
+                    })}
+                </div>
             </div>
         </nav>
     )
