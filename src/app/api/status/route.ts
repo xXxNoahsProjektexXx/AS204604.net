@@ -4,7 +4,7 @@ export async function GET() {
 
     const servers = [
         {
-            name: "core-router-1",
+            name: "core router 1",
             location: "Vienna",
             status: "online",
             load: 15
