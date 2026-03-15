@@ -40,3 +40,5 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 https-/github.com/xxCodeZLinks214125236236/AS204604.net.git/
+
+/src/generated/prisma

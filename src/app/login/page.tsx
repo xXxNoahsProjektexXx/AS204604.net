@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import { useRouter } from "next/navigation"
+import LoginButton from "@/components/LoginButton";
 
 export default function Login(){
 
@@ -57,6 +58,8 @@ export default function Login(){
                 >
                     Login
                 </button>
+
+                <LoginButton />
 
             </div>
 
