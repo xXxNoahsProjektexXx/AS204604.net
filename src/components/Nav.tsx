@@ -8,9 +8,9 @@ export default function Nav() {
     const pathname = usePathname()
 
     const links = [
-        { href: "/dashboard", label: "Dashboard", icon: Globe },
+        { href: "/bgp", label: "BGP Infos", icon: Globe },
         { href: "/status", label: "Status", icon: Activity },
-        { href: "/legal", label: "Legal", icon: FileText }
+        { href: "/privacy", label: "Privacy / Datenschutz", icon: FileText }
     ]
 
     return (

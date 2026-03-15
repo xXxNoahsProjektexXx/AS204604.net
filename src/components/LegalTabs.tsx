@@ -1,6 +1,7 @@
 "use client"
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
+import Link from "next/link";
 
 export default function LegalTabs() {
     const [tab, setTab] = useState<"impressum"|"privacy">("impressum")
@@ -38,6 +39,7 @@ export default function LegalTabs() {
                     <li>Keine Weitergabe an Dritte ohne Einwilligung</li>
                     <li>Kontaktformulare nur für Supportzwecke</li>
                 </ul>
+                <Link href={"/privacy"}>Privacy Tab</Link>
             </div>
         )
     }
@@ -51,23 +53,25 @@ export default function LegalTabs() {
                     {tabs.map((t) => {
                         const active = tab === t.id
                         return (
-                            <button
-                                key={t.id}
-                                onClick={() => setTab(t.id as any)}
-                                className="relative px-5 py-2 text-sm font-medium z-10"
-                            >
-                                {active && (
-                                    <motion.div
-                                        layoutId="tab-indicator"
-                                        className="absolute inset-0 bg-blue-500/20 rounded-lg border border-blue-400/40"
-                                        transition={{ type: "spring", duration: 0.5 }}
-                                    />
-                                )}
+                            <>
+                                <button
+                                    key={t.id}
+                                    onClick={() => setTab(t.id as any)}
+                                    className="relative px-5 py-2 text-sm font-medium z-10"
+                                >
+                                    {active && (
+                                        <motion.div
+                                            layoutId="tab-indicator"
+                                            className="absolute inset-0 bg-blue-500/20 rounded-lg border border-blue-400/40"
+                                            transition={{ type: "spring", duration: 0.5 }}
+                                        />
+                                    )}
 
-                                <span className={`relative ${active ? "text-white" : "text-gray-400 hover:text-gray-200"}`}>
+                                    <span className={`relative ${active ? "text-white" : "text-gray-400 hover:text-gray-200"}`}>
                                     {t.label}
                                 </span>
-                            </button>
+                                </button>
+                            </>
                         )
                     })}
                 </div>
