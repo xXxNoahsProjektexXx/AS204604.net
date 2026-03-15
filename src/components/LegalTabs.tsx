@@ -14,7 +14,7 @@ export default function LegalTabs() {
         impressum: (
             <div className="space-y-3 text-gray-300">
                 <h2 className="text-2xl font-semibold text-white">Impressum</h2>
-                <p><strong>Betreiber:</strong> AS204604 Network Services</p>
+                <p><strong>Betreiber:</strong> Marcel Noah Weixelbaum</p>
                 <p><strong>Adresse:</strong> Leo-Mathauser-Gasse 72, 1230 Wien, Österreich</p>
                 <p className="text-sm text-red-400">
                     Hinweis: Privatpakete werden an dieser Adresse nicht entgegengenommen.
