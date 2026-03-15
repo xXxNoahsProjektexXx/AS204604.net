@@ -1,26 +1,24 @@
-import { NextResponse } from "next/server"
-import jwt from "jsonwebtoken"
+import { NextResponse } from "next/server";
+import { cookies } from "next/headers";
 
 export async function POST(req: Request) {
 
-    const { username, password } = await req.json()
+    const { username, password } = await req.json();
 
-    if (
-        username === process.env.ADMIN_USER &&
-        password === process.env.ADMIN_PASS
-    ) {
+    if(username === "admin" && password === "Admin123") {
+        // Set Cookie
+        const cookieStore = await cookies()
+        cookieStore.set({
+            name:"auth",
+            value:"admin",
+            httpOnly:true,
+            path:"/",
+            sameSite:"strict",
+            secure:process.env.NODE_ENV==="production"
+        })
 
-        const token = jwt.sign(
-            { user: username },
-            process.env.NEXTAUTH_SECRET!,
-            { expiresIn: "1d" }
-        )
-
-        return NextResponse.json({ token })
+        return NextResponse.json({ success: true })
     }
 
-    return NextResponse.json(
-        { error: "invalid credentials" },
-        { status: 401 }
-    )
+    return NextResponse.json({ success: false }, { status: 401 })
 }

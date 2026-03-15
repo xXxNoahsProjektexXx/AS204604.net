@@ -13,7 +13,7 @@ export async function POST(req: Request) {
         }
 
         const payload = {
-            username: "Contact Form",
+            username: "AS204604.net -- Contact Form",
             embeds: [
                 {
                     title: `New Message from ${name}`,
