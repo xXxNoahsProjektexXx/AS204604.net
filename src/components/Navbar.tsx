@@ -9,7 +9,8 @@ const links = [
     { name: "Home", href: "/", icon: Globe },
     { name: "BGP", href: "/bgp", icon: Activity },
     { name: "About", href: "/about", icon: Info },
-    { name: "Legal", href: "/legal", icon: Scale }
+    { name: "Legal", href: "/legal", icon: Scale },
+    { name: "Kontakt", href: "/contact", icon: Info },
 ]
 
 export default function Navbar() {
