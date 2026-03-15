@@ -15,7 +15,7 @@ export default function LegalPage(){
             {/* Title */}
 
             <h1 className="text-3xl font-bold mb-8">
-                Legal Information
+                Legal Notice / Rechtlicher Hinweis
             </h1>
 
             {/* Tabs */}
@@ -74,27 +74,14 @@ ${tab==="privacy"
 
                         <div className="space-y-2 text-sm">
 
-                            <p>
-                                <strong>Betreiber:</strong><br/>
-                                Private Network Infrastructure
-                            </p>
+                            <h2 className="text-2xl font-semibold">Impressum</h2>
+                            <p><strong>Name / Betreiber:</strong> Marcel Noah Weixelbaum</p>
+                            <p><strong>Anschrift:</strong> Leo-mathauser-gasse 72, 1230 Wien, Österreich</p>
+                            <p><strong>E-Mail:</strong> <a href="mailto:admin@as204604.de" className="text-blue-600 underline">admin@as204604.de</a></p>
+                            <p><strong>Telefon:</strong> <a href={"tel:+436707019622"} className={"text-blue-600 underline"}>+43 670 70 19622</a> </p>
+                            <p><strong>Verantwortlich für den Inhalt:</strong> Marcel Noah Weixelbaum</p>
+                            <p>Dieses Impressum gilt für die Präsentation und den Betrieb des Autonomen Systems AS204604.</p>
 
-                            <p>
-                                <strong>Autonomous System:</strong><br/>
-                                AS204604
-                            </p>
-
-                            <p>
-                                <strong>Standort:</strong><br/>
-                                Österreich
-                            </p>
-
-                            <p>
-                                <strong>Zweck der Website:</strong><br/>
-                                Bereitstellung von Informationen über private
-                                Netzwerkinfrastruktur, Routing Experimente
-                                und technische Projekte.
-                            </p>
 
                         </div>
 

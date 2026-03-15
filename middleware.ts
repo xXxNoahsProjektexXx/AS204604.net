@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
 
 // Routen, die geschützt werden sollen
-const protectedRoutes = ["/admin", "/status", "/bgp", "/contact"]
+const protectedRoutes = ["/admin", "/status"]
 
 export function middleware(req: NextRequest) {
 
@@ -15,7 +15,7 @@ export function middleware(req: NextRequest) {
         if (!authCookie || authCookie !== "admin") {
             // Weiterleitung auf Login
             const loginUrl = req.nextUrl.clone()
-            loginUrl.pathname = "/login?v2=true"
+            loginUrl.pathname = "/login"
             return NextResponse.redirect(loginUrl)
         }
 
@@ -26,5 +26,5 @@ export function middleware(req: NextRequest) {
 
 // nur auf diese Pfade anwenden
 export const config = {
-    matcher: ["/admin/:path*", "/status/:path*", "/bgp/:path*", "/contact/:path*"]
+    matcher: ["/admin/:path*", "/status/:path*"]
 }
