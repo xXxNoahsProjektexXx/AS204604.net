@@ -1,50 +1,93 @@
-'use client';
+"use client"
 
-export default function Footer() {
-    return (
-        <footer style={{
-            background: 'var(--bg)', borderTop: '1px solid var(--border)',
-            padding: '3rem 0', position: 'relative', zIndex: 1,
-        }}>
-            <style>{`
-        .footer-link {
-          font-family: 'Share Tech Mono', monospace;
-          font-size: .72rem;
-          color: var(--muted);
-          text-decoration: none;
-          transition: color .2s;
-        }
-        .footer-link:hover { color: var(--accent); }
-      `}</style>
-            <div style={{
-                maxWidth: 1200, margin: '0 auto', padding: '0 2rem',
-                display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-                flexWrap: 'wrap', gap: '1rem',
-            }}>
-        <span style={{ fontFamily: "'Orbitron',monospace", fontWeight: 900, fontSize: '.9rem', color: 'var(--muted)' }}>
-          AS204604
-        </span>
-                <span style={{ fontFamily: "'Share Tech Mono',monospace", fontSize: '.72rem', color: 'var(--muted)' }}>
-          © {new Date().getFullYear()} AS204604 — All rights reserved
-        </span>
-                <div style={{ display: 'flex', gap: '1.5rem' }}>
-                    {[
-                        { label: 'RIPE DB',   href: 'https://apps.db.ripe.net/db-web-ui/query?searchtext=AS204604' },
-                        { label: 'PeeringDB', href: 'https://www.peeringdb.com' },
-                        { label: 'NOC',       href: 'mailto:noc@as204604.de' },
-                    ].map(({ label, href }) => (
-                        <a
-                            key={label}
-                            href={href}
-                            target={href.startsWith('http') ? '_blank' : undefined}
-                            rel={href.startsWith('http') ? 'noreferrer' : undefined}
-                            className="footer-link"
-                        >
-                            {label}
-                        </a>
-                    ))}
+import { motion } from "framer-motion"
+import { Github, Globe, Network } from "lucide-react"
+import Link from "next/link"
+
+export default function Footer(){
+
+    return(
+
+        <footer className="border-t border-zinc-800 mt-20">
+
+            <div className="max-w-6xl mx-auto px-6 py-10 grid md:grid-cols-3 gap-8 text-sm">
+
+                {/* Brand */}
+
+                <div>
+
+                    <motion.div
+                        initial={{opacity:0,y:10}}
+                        animate={{opacity:1,y:0}}
+                        className="flex items-center gap-2 font-semibold text-lg mb-2"
+                    >
+
+                        <Network size={18} className="text-blue-400"/>
+
+                        AS204604
+
+                    </motion.div>
+
+                    <p className="text-zinc-400">
+                        Private networking infrastructure for friends,
+                        services and routing experiments.
+                    </p>
+
                 </div>
+
+                {/* Navigation */}
+
+                <div>
+
+                    <h3 className="font-semibold mb-3">
+                        Navigation
+                    </h3>
+
+                    <ul className="space-y-2 text-zinc-400">
+
+                        <li><Link href="/">Home</Link></li>
+                        <li><Link href="/bgp">BGP Stats</Link></li>
+                        <li><Link href="/about">About</Link></li>
+                        <li><Link href="/legal">Legal</Link></li>
+
+                    </ul>
+
+                </div>
+
+                {/* Network */}
+
+                <div>
+
+                    <h3 className="font-semibold mb-3">
+                        Network
+                    </h3>
+
+                    <ul className="space-y-2 text-zinc-400">
+
+                        <li className="flex gap-2 items-center">
+                            <Globe size={14}/>
+                            ASN: 204604
+                        </li>
+
+                        <li className="flex gap-2 items-center">
+                            <Github size={14}/>
+                            Infrastructure Projects
+                        </li>
+
+                    </ul>
+
+                </div>
+
             </div>
+
+            <div className="border-t border-zinc-800 text-center text-xs text-zinc-500 py-4">
+
+                © {new Date().getFullYear()} AS204604 • Private Network Infrastructure
+
+            </div>
+
         </footer>
-    );
+
+    )
+
 }

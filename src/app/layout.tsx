@@ -1,49 +1,34 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
-import Nav from "@/components/Nav";
-import Fut from "@/components/Fut";
+import "./globals.css"
+import Navbar from "@/components/Navbar"
+import Footer from "@/components/Footer"
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
-export const metadata: Metadata = {
-  title: "AS204604 — Autonomous System Network",
-  description: "AS204604 — Independent Autonomous System providing reliable BGP routing, IP transit and open peering.",
-    keywords: ['AS204604', 'ASN', 'BGP', 'peering', 'IP transit', 'NOC'],
-};
+export const metadata = {
+    title: "AS204604 Network",
+    description: "Private networking infrastructure"
+}
 
 export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
-  return (
-      <>
+                                       children
+                                   }: {
+    children: React.ReactNode
+}) {
+    return (
+        <html lang="de">
+        <body className="bg-black text-white">
 
-          <html lang="de">
-          <body
-              className={`${geistSans.variable} ${geistMono.variable} antialiased bg-black text-white`}
-          >
+        <div className="flex flex-col min-h-screen">
 
-          <Nav />
+            <Navbar />
 
-          {children}
-          </body>
+            <main className="flex-1">
+                {children}
+            </main>
 
+            <Footer />
 
-          </html>
+        </div>
 
-          <Fut />
-
-      </>
-
-  );
+        </body>
+        </html>
+    )
 }

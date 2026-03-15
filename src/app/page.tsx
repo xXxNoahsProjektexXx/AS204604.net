@@ -1,60 +1,133 @@
 "use client"
-import { motion } from "framer-motion"
-import Link from "next/link"
-import { Globe, Activity } from "lucide-react"
 
-export default function Home() {
-    return (
-        <main className="min-h-screen flex flex-col items-center justify-center text-center px-6">
+import { motion } from "framer-motion"
+import { Network, Server, Activity, Globe } from "lucide-react"
+
+export default function Home(){
+
+    return(
+
+        <div className="max-w-6xl mx-auto px-6 py-20">
 
             {/* Hero */}
-            <motion.h1
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
-                className="text-6xl font-bold mb-4"
-            >
-                AS204604
-            </motion.h1>
 
-            <motion.p
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.3 }}
-                className="text-gray-400 max-w-xl mb-8"
-            >
-                Independent Autonomous System providing modern network infrastructure, VPS hosting, and backbone connectivity.
-            </motion.p>
-
-            {/* Infobox */}
             <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.6 }}
-                className="bg-zinc-900/70 backdrop-blur-xl border border-zinc-800 p-6 rounded-2xl max-w-xl text-left mb-10"
+                initial={{opacity:0,y:20}}
+                animate={{opacity:1,y:0}}
+                className="text-center mb-20"
             >
-                <h2 className="text-2xl font-semibold mb-2">Wichtige Info</h2>
-                <p className="text-gray-300">
-                    Unsere ASN 204604 bietet sichere und performante Netzwerkverbindungen in Europa.
-                    Prüfen Sie regelmäßig den <Link href="/status" className="text-blue-400 underline">Server Status</Link> und Dashboard für aktuelle BGP-Updates.
+
+                <h1 className="text-4xl md:text-5xl font-bold mb-6">
+
+                    AS204604 Network
+
+                </h1>
+
+                <p className="text-zinc-400 max-w-xl mx-auto">
+
+                    Private autonomous system used for networking
+                    experiments, infrastructure and services.
+
                 </p>
+
             </motion.div>
 
-            {/* Buttons */}
-            <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.8 }}
-                className="flex gap-6"
-            >
-                <Link href="/bgp" className="bg-white text-black px-6 py-3 rounded-xl flex gap-2 items-center">
-                    <Globe size={18}/> BGP Stats
-                </Link>
-                <Link href="/status" className="border border-white px-6 py-3 rounded-xl flex gap-2 items-center">
-                    <Activity size={18}/> Server Status
-                </Link>
-            </motion.div>
+            {/* Cards */}
 
-        </main>
+            <div className="grid md:grid-cols-3 gap-6">
+
+                <div className="border border-zinc-800 rounded-xl p-6 hover:bg-zinc-900 transition">
+
+                    <Network className="mb-4 text-blue-400"/>
+
+                    <h2 className="font-semibold mb-2">
+                        Autonomous System
+                    </h2>
+
+                    <p className="text-sm text-zinc-400">
+
+                        Public ASN for BGP routing experiments
+                        and infrastructure learning.
+
+                    </p>
+
+                </div>
+
+                <div className="border border-zinc-800 rounded-xl p-6 hover:bg-zinc-900 transition">
+
+                    <Server className="mb-4 text-blue-400"/>
+
+                    <h2 className="font-semibold mb-2">
+                        Infrastructure
+                    </h2>
+
+                    <p className="text-sm text-zinc-400">
+
+                        Private servers hosting services and
+                        networking tools.
+
+                    </p>
+
+                </div>
+
+                <div className="border border-zinc-800 rounded-xl p-6 hover:bg-zinc-900 transition">
+
+                    <Activity className="mb-4 text-blue-400"/>
+
+                    <h2 className="font-semibold mb-2">
+                        BGP Statistics
+                    </h2>
+
+                    <p className="text-sm text-zinc-400">
+
+                        View routing information,
+                        prefix announcements and peers.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+            {/* Network Info */}
+
+            <div className="mt-20 border border-zinc-800 rounded-xl p-8">
+
+                <h2 className="text-xl font-semibold mb-6">
+
+                    Network Overview
+
+                </h2>
+
+                <div className="grid md:grid-cols-3 gap-6 text-sm">
+
+                    <div>
+
+                        <p className="text-zinc-500">ASN</p>
+                        <p className="text-lg font-semibold">204604</p>
+
+                    </div>
+
+                    <div>
+
+                        <p className="text-zinc-500">Routing</p>
+                        <p className="text-lg font-semibold">IPv4 / IPv6</p>
+
+                    </div>
+
+                    <div>
+
+                        <p className="text-zinc-500">Location</p>
+                        <p className="text-lg font-semibold">Europe</p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
     )
+
 }

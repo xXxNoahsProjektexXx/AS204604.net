@@ -14,6 +14,8 @@ export async function GET(){
             timeseen:p.timeseen
         }))
 
-    return NextResponse.json(prefixes)
+    const bgpData = data.messages
+
+    return NextResponse.json(bgpData)
 
 }
