@@ -47,8 +47,8 @@ export default function Home() {
                 transition={{ delay: 0.8 }}
                 className="flex gap-6"
             >
-                <Link href="/dashboard" className="bg-white text-black px-6 py-3 rounded-xl flex gap-2 items-center">
-                    <Globe size={18}/> Dashboard
+                <Link href="/bgp" className="bg-white text-black px-6 py-3 rounded-xl flex gap-2 items-center">
+                    <Globe size={18}/> BGP Stats
                 </Link>
                 <Link href="/status" className="border border-white px-6 py-3 rounded-xl flex gap-2 items-center">
                     <Activity size={18}/> Server Status
