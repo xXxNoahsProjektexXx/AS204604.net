@@ -1,6 +1,7 @@
 import "./globals.css"
 import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
+import Cursor from "@/components/Cursor";
 
 export const metadata = {
     title: "AS204604 Network",
@@ -19,8 +20,9 @@ export default function RootLayout({
         <div className="flex flex-col min-h-screen">
 
             <Navbar />
-
+            <Cursor />
             <main className="flex-1">
+
                 {children}
             </main>
 

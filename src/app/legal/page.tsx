@@ -121,11 +121,11 @@ ${tab==="privacy"
 
                             <ul className="list-disc list-inside space-y-1">
 
-                                <li>IP-Adresse</li>
-                                <li>Datum und Uhrzeit der Anfrage</li>
-                                <li>Browsertyp und Version</li>
-                                <li>Betriebssystem</li>
-                                <li>Referrer URL</li>
+                                <li className={"text-white"}>IP-Adresse</li>
+                                <li className={"text-white"}>Datum und Uhrzeit der Anfrage</li>
+                                <li className={"text-white"}>Browsertyp und Version</li>
+                                <li className={"text-white"}>Betriebssystem</li>
+                                <li className={"text-white"}>Referrer URL</li>
 
                             </ul>
 
@@ -138,7 +138,7 @@ ${tab==="privacy"
 
                             <p>
 
-                                Es erfolgt keine Weitergabe der Daten an Dritte.
+                                Es erfolgt <strong className={"text-red-600 underline"}>keine Weitergabe</strong> der Daten an Dritte.
 
                             </p>
 

@@ -1,7 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Github, Globe, Network } from "lucide-react"
+import { Github, Globe, Network, Airplay, HammerIcon, ChevronUpCircleIcon } from "lucide-react"
 import Link from "next/link"
 
 export default function Footer(){
@@ -47,7 +47,7 @@ export default function Footer(){
 
                         <li><Link href="/">Home</Link></li>
                         <li><Link href="/bgp">BGP Stats</Link></li>
-                        <li><Link href="/about">About</Link></li>
+                        <li><Link href="/about"> About</Link></li>
                         <li><Link href="/legal">Legal</Link></li>
 
                     </ul>
@@ -70,7 +70,7 @@ export default function Footer(){
                         </li>
 
                         <li className="flex gap-2 items-center">
-                            <Github size={14}/>
+                            <Network size={14}/>
                             Infrastructure Projects
                         </li>
 
@@ -82,7 +82,7 @@ export default function Footer(){
 
             <div className="border-t border-zinc-800 text-center text-xs text-zinc-500 py-4">
 
-                © {new Date().getFullYear()} AS204604 • Private Network Infrastructure
+                © {new Date().getUTCFullYear()} AS204604 • Private Network Infrastructure
 
             </div>
 
