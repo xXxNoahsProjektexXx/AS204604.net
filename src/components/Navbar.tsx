@@ -14,74 +14,64 @@ const links = [
 ]
 
 export default function Navbar() {
-
     const pathname = usePathname()
 
     return (
-
-        <header className="sticky top-0 z-50 backdrop-blur-lg bg-black/60 border-b border-zinc-800">
-
+        <header className="sticky top-0 z-50 border-b border-white/5 bg-[#0B0F19]/70 backdrop-blur-xl">
             <div className="max-w-6xl mx-auto flex items-center justify-between px-6 h-16">
 
                 {/* Logo */}
+                <Link href="/" className="flex items-center gap-3">
+                    <div className="relative">
+                        <div className="absolute inset-0 bg-purple-500/30 blur-md rounded-full" />
+                        <Activity size={20} className="relative text-purple-400" />
+                    </div>
 
-                <motion.div
-                    initial={{opacity:0}}
-                    animate={{opacity:1}}
-                    className="flex items-center gap-2 font-semibold text-lg"
-                >
-
-                    <Activity size={20} className="text-blue-400"/>
-
-                    <Link href="/">
-                        AS204604
-                    </Link>
-
-                </motion.div>
+                    <span className="font-semibold text-white tracking-tight">
+            AS204604
+          </span>
+                </Link>
 
                 {/* Navigation */}
+                <nav className="flex items-center gap-1">
 
-                <nav className="flex items-center gap-2">
-
-                    {links.map((link,i)=>{
-
+                    {links.map((link, i) => {
                         const Icon = link.icon
                         const active = pathname === link.href
 
                         return (
-
-                            <motion.div
-                                key={link.href}
-                                whileHover={{y:-2}}
-                                whileTap={{scale:0.95}}
-                            >
-
-                                <Link
-                                    href={link.href}
-                                    className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm transition
-${active
-                                        ? "bg-zinc-800 text-white"
-                                        : "text-zinc-400 hover:text-white hover:bg-zinc-900"}
-`}
+                            <Link key={link.href} href={link.href}>
+                                <motion.div
+                                    whileHover={{ y: -2 }}
+                                    whileTap={{ scale: 0.96 }}
+                                    className="relative"
                                 >
 
-                                    <Icon size={16}/>
-                                    {link.name}
+                                    {/* Active Background Glow */}
+                                    {active && (
+                                        <div className="absolute inset-0 bg-purple-600/20 rounded-xl blur-md" />
+                                    )}
 
-                                </Link>
+                                    <div
+                                        className={`
+                      relative flex items-center gap-2 px-4 py-2 rounded-xl text-sm transition
+                      ${active
+                                            ? "text-white bg-white/5 border border-white/10"
+                                            : "text-gray-400 hover:text-white hover:bg-white/5"}
+                    `}
+                                    >
+                                        <Icon size={16} />
+                                        {link.name}
+                                    </div>
 
-                            </motion.div>
-
+                                </motion.div>
+                            </Link>
                         )
-
                     })}
 
                 </nav>
 
             </div>
-
         </header>
-
     )
-
 }
