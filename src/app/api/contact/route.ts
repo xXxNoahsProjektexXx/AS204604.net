@@ -9,7 +9,7 @@ export async function POST(req: Request) {
         const { name, email, message } = await req.json();
 
         if(!DISCORD_WEBHOOK_URL) {
-            return NextResponse.json({ error: "Contact Form is not configured!"}, { status: 500 })
+            return NextResponse.json({ error: "Contact Whip Form is not configured!"}, { status: 500 })
         }
 
         const payload = {
