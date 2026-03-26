@@ -1,7 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Github, Globe, Network } from "lucide-react"
+import { Github, Globe, Network, Disc } from "lucide-react"
 import Link from "next/link"
 
 export default function Footer() {
@@ -38,7 +38,7 @@ export default function Footer() {
                             href="#"
                             className="p-2 rounded-lg bg-white/5 hover:bg-white/10 transition"
                         >
-                            <Github size={16} />
+                            <Disc size={16} />
                         </a>
                     </div>
                 </div>

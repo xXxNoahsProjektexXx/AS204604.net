@@ -3,107 +3,152 @@
 import { useEffect, useState } from "react"
 import { motion } from "framer-motion"
 
-export default function StatusPage(){
+export default function StatusPage() {
+    const [servers, setServers] = useState<any[]>([])
 
-    const [servers,setServers] = useState<any[]>([])
-
-    useEffect(()=>{
-
+    useEffect(() => {
         fetch("/api/status")
-            .then(r=>r.json())
+            .then((r) => r.json())
             .then(setServers)
+    }, [])
 
-    },[])
+    const statusConfig = (status: string) => {
+        if (status === "online")
+            return {
+                color: "text-green-400",
+                bg: "bg-green-500/20",
+                border: "border-green-500/30",
+                label: "Operational"
+            }
 
-    const statusColor = (status:string)=>{
-        if(status==="online") return "bg-green-500/20 text-green-400 border-green-500/30"
-        if(status==="maintenance") return "bg-yellow-500/20 text-yellow-400 border-yellow-500/30"
-        return "bg-red-500/20 text-red-400 border-red-500/30"
+        if (status === "maintenance")
+            return {
+                color: "text-yellow-400",
+                bg: "bg-yellow-500/20",
+                border: "border-yellow-500/30",
+                label: "Maintenance"
+            }
+
+        return {
+            color: "text-red-400",
+            bg: "bg-red-500/20",
+            border: "border-red-500/30",
+            label: "Offline"
+        }
     }
 
-    return(
+    const overall =
+        servers.length > 0 &&
+        servers.every((s) => s.status === "online")
 
-        <main className="max-w-7xl mx-auto px-8 py-16">
+    return (
+        <div className="relative overflow-hidden">
 
-            {/* Header */}
-            <div className="mb-12">
-                <h1 className="text-4xl font-bold text-white">
-                    Network Status
-                </h1>
+            {/* Background */}
+            <div className="absolute inset-0 bg-gradient-to-br from-[#0B0F19] via-[#0f172a] to-[#020617]" />
+            <div className="absolute w-[800px] h-[800px] bg-purple-600/20 blur-[140px] top-[-200px] left-1/2 -translate-x-1/2" />
 
-                <p className="text-gray-400 mt-2">
-                    Live infrastructure status for AS204604
-                </p>
-            </div>
+            <main className="relative max-w-7xl mx-auto px-6 py-24">
 
-            {/* Grid */}
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {/* HEADER */}
+                <div className="text-center mb-16">
+                    <h1 className="text-5xl font-bold tracking-tight bg-gradient-to-b from-white to-gray-400 bg-clip-text text-transparent">
+                        Network Status
+                    </h1>
 
-                {servers.length === 0 && (
-                    <p className="text-gray-500">Loading servers...</p>
-                )}
+                    <p className="text-gray-400 mt-4">
+                        Live infrastructure status for AS204604
+                    </p>
 
-                {servers.map((s,i)=>(
+                    {/* Overall Status */}
+                    <div className="mt-6">
+            <span
+                className={`px-4 py-2 rounded-xl text-sm border ${
+                    overall
+                        ? "bg-green-500/20 text-green-400 border-green-500/30"
+                        : "bg-red-500/20 text-red-400 border-red-500/30"
+                }`}
+            >
+              {overall ? "● All Systems Operational" : "● Partial Outage"}
+            </span>
+                    </div>
+                </div>
 
-                    <motion.div
-                        key={i}
-                        initial={{ opacity:0, y:20 }}
-                        animate={{ opacity:1, y:0 }}
-                        transition={{ delay: i * 0.05 }}
-                        whileHover={{ scale:1.03 }}
-                        className="bg-zinc-900/70 backdrop-blur border border-zinc-800 p-6 rounded-xl shadow-lg hover:border-blue-500/40 transition"
-                    >
+                {/* GRID */}
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
 
-                        {/* Server Name */}
-                        <h2 className="text-xl font-semibold text-white">
-                            {s.name}
-                        </h2>
+                    {servers.length === 0 && (
+                        <p className="text-gray-500">Loading infrastructure...</p>
+                    )}
 
-                        <p className="text-gray-400 text-sm mt-1">
-                            {s.location}
-                        </p>
+                    {servers.map((s, i) => {
+                        const config = statusConfig(s.status)
 
-                        {/* Status */}
-                        <div className="mt-4 flex items-center gap-2">
+                        return (
+                            <motion.div
+                                key={i}
+                                initial={{ opacity: 0, y: 30 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: i * 0.05 }}
+                                className="relative p-[1px] rounded-2xl bg-gradient-to-b from-white/10 to-white/5"
+                            >
+                                <div className="rounded-2xl bg-[#111827] p-6 h-full hover:bg-[#0f172a] transition">
 
-                            <span className="text-sm text-gray-400">
-                                Status
-                            </span>
+                                    {/* Header */}
+                                    <div className="flex justify-between items-start">
 
-                            <span className={`text-xs px-2 py-1 rounded-md border ${statusColor(s.status)}`}>
-                                {s.status}
-                            </span>
+                                        <div>
+                                            <h2 className="text-lg font-semibold text-white">
+                                                {s.name}
+                                            </h2>
 
-                        </div>
+                                            <p className="text-gray-500 text-xs mt-1">
+                                                {s.location}
+                                            </p>
+                                        </div>
 
-                        {/* Load */}
-                        <div className="mt-5">
+                                        <span
+                                            className={`text-xs px-2 py-1 rounded-md border ${config.bg} ${config.color} ${config.border}`}
+                                        >
+                      {config.label}
+                    </span>
 
-                            <div className="flex justify-between text-sm text-gray-400 mb-1">
-                                <span>Load</span>
-                                <span>{s.load}%</span>
-                            </div>
+                                    </div>
 
-                            <div className="h-2 bg-zinc-800 rounded-full overflow-hidden">
+                                    {/* Load */}
+                                    <div className="mt-6">
 
-                                <motion.div
-                                    initial={{ width:0 }}
-                                    animate={{ width:`${s.load}%` }}
-                                    transition={{ duration:0.8 }}
-                                    className="h-full bg-blue-500"
-                                />
+                                        <div className="flex justify-between text-xs text-gray-400 mb-1">
+                                            <span>CPU Load</span>
+                                            <span>{s.load}%</span>
+                                        </div>
 
-                            </div>
+                                        <div className="h-2 bg-black/40 rounded-full overflow-hidden">
 
-                        </div>
+                                            <motion.div
+                                                initial={{ width: 0 }}
+                                                animate={{ width: `${s.load}%` }}
+                                                transition={{ duration: 0.8 }}
+                                                className="h-full bg-gradient-to-r from-purple-500 to-blue-500"
+                                            />
 
-                    </motion.div>
+                                        </div>
 
-                ))}
+                                    </div>
 
-            </div>
+                                    {/* Extra Info */}
+                                    <div className="mt-5 text-xs text-gray-500">
+                                        Last check: just now
+                                    </div>
 
-        </main>
+                                </div>
+                            </motion.div>
+                        )
+                    })}
 
+                </div>
+
+            </main>
+        </div>
     )
 }
