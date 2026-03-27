@@ -37,8 +37,6 @@ export const config = {
     matcher: [
         "/bgp/info",
         "/bgp/info/:path*",
-        "/bgp",
-        "/bgp/:path*",
         "/status",
         "/status/:path*",
         "/v2",
