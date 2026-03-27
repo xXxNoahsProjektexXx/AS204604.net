@@ -9,13 +9,14 @@ export async function POST(req: Request) {
         // Set Cookie
         const cookieStore = await cookies()
         cookieStore.set({
-            name:"auth",
-            value:"admin",
-            httpOnly:true,
-            path:"/",
-            sameSite:"strict",
-            secure:process.env.NODE_ENV==="production"
-        })
+            name: "auth",
+            value: "admin",
+            httpOnly: true,
+            path: "/",
+            sameSite: "strict",
+            secure: process.env.NODE_ENV === "production",
+            maxAge: 60 * 60 * 24 // 1 Tag
+        });
 
         return NextResponse.json({ success: true })
     }
