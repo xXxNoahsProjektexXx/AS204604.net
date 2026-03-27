@@ -2,8 +2,10 @@
 
 import { motion } from "framer-motion"
 import { Network, Server, Activity, Globe } from "lucide-react"
+import Link from "next/link";
 
 export default function Home() {
+
     return (
         <div className="relative overflow-hidden">
 
@@ -29,13 +31,17 @@ export default function Home() {
 
                     {/* CTA */}
                     <div className="mt-10 flex justify-center gap-4">
-                        <button className="px-6 py-3 rounded-xl bg-purple-600 hover:bg-purple-500 transition">
-                            View Network
-                        </button>
+                        <Link href={"/about"}>
+                            <button className="px-6 py-3 rounded-xl bg-purple-600 hover:bg-purple-500 transition">
+                                View Network
+                            </button>
+                        </Link>
 
-                        <button className="px-6 py-3 rounded-xl border border-white/10 hover:bg-white/5 transition">
-                            BGP Stats
-                        </button>
+                        <Link href={"/bgp"}>
+                            <button className="px-6 py-3 rounded-xl border border-white/10 hover:bg-white/5 transition">
+                                BGP Stats
+                            </button>
+                        </Link>
                     </div>
                 </motion.div>
 
