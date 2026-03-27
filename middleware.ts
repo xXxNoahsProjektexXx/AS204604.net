@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 // Routen die geschützt werden sollen
-const PROTECTED_ROUTES = ["/bgp/info", "/status", "/v2"];
+const PROTECTED_ROUTES = ["/bgp/info", "/status", "/v2", "/bgp", "/dashboard"];
 
 export function middleware(request: NextRequest) {
     const { pathname } = request.nextUrl;
