@@ -3,40 +3,87 @@ import { NextResponse } from "next/server";
 const DISCORD_WEBHOOK_URL = process.env.DISCORD_WEBHOOK_URL;
 
 export async function POST(req: Request) {
-
     try {
-
         const { name, email, message } = await req.json();
 
-        if(!DISCORD_WEBHOOK_URL) {
-            return NextResponse.json({ error: "Contact Whip Form is not configured!"}, { status: 500 })
+        // ❗ Validation
+        if (!name || !email || !message) {
+            return NextResponse.json(
+                { error: "All fields are required." },
+                { status: 400 }
+            );
+        }
+
+        if (message.length > 1000) {
+            return NextResponse.json(
+                {
+                    error:
+                        "Message too long. Please use less than 1000 characters.",
+                },
+                { status: 400 }
+            );
+        }
+
+        if (!DISCORD_WEBHOOK_URL) {
+            return NextResponse.json(
+                { error: "Contact Form is not configured!" },
+                { status: 500 }
+            );
         }
 
         const payload = {
-            username: "AS204604.net -- Contact Form",
+            username: "AS204604 • NOC",
+            avatar_url: "https://cdn-icons-png.flaticon.com/512/906/906334.png",
+
             embeds: [
                 {
-                    title: `New Message from ${name}`,
-                    color: 3447003, // blue
+                    title: "📩 New Contact Request",
+                    description: `New message received via **AS204604 Contact Form**`,
+                    color: 0x7c3aed,
+
                     fields: [
-                        { name: "Name", value: name, inline: true },
-                        { name: "E-Mail", value: email, inline: true },
-                        { name: "Message", value: message, inline: false },
+                        {
+                            name: "👤 Name",
+                            value: `\`${name}\``,
+                            inline: true,
+                        },
+                        {
+                            name: "📧 Email",
+                            value: `\`${email}\``,
+                            inline: true,
+                        },
+                        {
+                            name: "💬 Message",
+                            value: message,
+                            inline: false,
+                        },
                     ],
-                    timestamp: new Date().toISOString()
-                }
-            ]
-        }
+
+                    footer: {
+                        text: "AS204604 Network • Contact System",
+                    },
+
+                    timestamp: new Date().toISOString(),
+                },
+            ],
+        };
 
         await fetch(DISCORD_WEBHOOK_URL, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(payload)
-        })
+            body: JSON.stringify(payload),
+        });
 
-        return NextResponse.json({ status: "success", message: "Contact has been received" }, { status: 200 })
-    } catch(error) {
-        console.error(error)
-        return NextResponse.json({ status: "error", error: error }, { status: 500 })
+        return NextResponse.json(
+            { status: "success", message: "Contact has been received" },
+            { status: 200 }
+        );
+    } catch (error) {
+        console.error(error);
+
+        return NextResponse.json(
+            { status: "error", error: "Internal Server Error" },
+            { status: 500 }
+        );
     }
 }
