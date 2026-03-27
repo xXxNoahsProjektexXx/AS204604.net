@@ -1,40 +1,45 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
-export function middleware(req: NextRequest) {
-    const auth = req.cookies.get("auth");
-    const { pathname } = req.nextUrl;
+// Routen die geschützt werden sollen
+const PROTECTED_ROUTES = ["/bgp/info", "/status", "/v2"];
 
-    const protectedPaths = [
-        "/status",
-        "/v2",
-        "/dashboard",
-        "/bgp"
-    ];
+export function middleware(request: NextRequest) {
+    const { pathname } = request.nextUrl;
 
-    const isProtected = protectedPaths.some(path =>
-        pathname.startsWith(path)
+    // Prüfen ob die aktuelle Route geschützt ist
+    const isProtected = PROTECTED_ROUTES.some(
+        (route) => pathname === route || pathname.startsWith(route + "/")
     );
 
-    // 🔒 Schutz
-    if (isProtected && auth?.value !== "admin") {
-        return NextResponse.redirect(new URL("/login", req.url));
+    if (!isProtected) {
+        return NextResponse.next();
     }
 
-    // 🔁 Wenn eingeloggt → kein Login mehr sehen
-    if (pathname === "/login" && auth?.value === "admin") {
-        return NextResponse.redirect(new URL("/dashboard", req.url));
+    // Auth-Cookie auslesen
+    const authCookie = request.cookies.get("auth");
+
+    // Kein Cookie vorhanden → weiterleiten zu /login
+    if (!authCookie || !authCookie.value) {
+        const loginUrl = new URL("/login", request.url);
+
+        // Optional: ursprüngliche URL als redirect-Parameter mitgeben
+        loginUrl.searchParams.set("redirect", pathname);
+
+        return NextResponse.redirect(loginUrl);
     }
 
+    // Cookie vorhanden → Zugriff erlauben
     return NextResponse.next();
 }
 
 export const config = {
     matcher: [
+        "/bgp/info",
+        "/bgp/info/:path*",
+        "/status",
         "/status/:path*",
+        "/v2",
         "/v2/:path*",
-        "/dashboard/:path*",
-        "/bgp/:path*",
-        "/login",
     ],
 };
