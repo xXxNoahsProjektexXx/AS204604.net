@@ -42,5 +42,6 @@ export const config = {
         "/v2",
         "/v2/:path*",
         "/dashboard/:path*",
+        "/privacy",
     ],
 };
