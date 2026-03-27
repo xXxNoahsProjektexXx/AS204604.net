@@ -2,10 +2,11 @@
 
 import Link from "next/link"
 import { motion } from "framer-motion"
-import { Activity, Globe, Info, Scale } from "lucide-react"
+import { Activity, Globe, Info, Scale, Shield, LayoutDashboard } from "lucide-react"
 import { usePathname } from "next/navigation"
+import { useEffect, useState } from "react"
 
-const links = [
+const publicLinks = [
     { name: "Home", href: "/", icon: Globe },
     { name: "BGP", href: "/bgp", icon: Activity },
     { name: "About", href: "/about", icon: Info },
@@ -13,8 +14,25 @@ const links = [
     { name: "Kontakt", href: "/contact", icon: Info },
 ]
 
+const adminLinks = [
+    { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
+    { name: "Status", href: "/status", icon: Activity },
+    { name: "v2", href: "/v2", icon: Shield },
+]
+
 export default function Navbar() {
     const pathname = usePathname()
+    const [loggedIn, setLoggedIn] = useState(false)
+
+    useEffect(() => {
+        fetch("/api/me")
+            .then(res => res.json())
+            .then(data => setLoggedIn(data.loggedIn))
+    }, [])
+
+    const links = loggedIn
+        ? [...publicLinks, ...adminLinks]
+        : publicLinks
 
     return (
         <header className="sticky top-0 z-50 border-b border-white/5 bg-[#0B0F19]/70 backdrop-blur-xl">
@@ -28,14 +46,14 @@ export default function Navbar() {
                     </div>
 
                     <span className="font-semibold text-white tracking-tight">
-            AS204604
-          </span>
+                        AS204604
+                    </span>
                 </Link>
 
                 {/* Navigation */}
                 <nav className="flex items-center gap-1">
 
-                    {links.map((link, i) => {
+                    {links.map((link) => {
                         const Icon = link.icon
                         const active = pathname === link.href
 
@@ -46,8 +64,6 @@ export default function Navbar() {
                                     whileTap={{ scale: 0.96 }}
                                     className="relative"
                                 >
-
-                                    {/* Active Background Glow */}
                                     {active && (
                                         <div className="absolute inset-0 bg-purple-600/20 rounded-xl blur-md" />
                                     )}
@@ -68,6 +84,19 @@ export default function Navbar() {
                             </Link>
                         )
                     })}
+
+                    {/* Logout Button */}
+                    {loggedIn && (
+                        <button
+                            onClick={async () => {
+                                await fetch("/api/logout", { method: "POST" })
+                                window.location.href = "/login"
+                            }}
+                            className="ml-3 px-3 py-2 text-sm text-red-400 hover:text-white hover:bg-red-500/10 rounded-xl transition"
+                        >
+                            Logout
+                        </button>
+                    )}
 
                 </nav>
 
