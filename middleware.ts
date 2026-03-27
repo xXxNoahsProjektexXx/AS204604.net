@@ -1,30 +1,35 @@
-import { NextRequest, NextResponse } from "next/server"
-
-// Routen, die geschützt werden sollen
-const protectedRoutes = ["/admin", "/status"]
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
 
 export function middleware(req: NextRequest) {
+    const auth = req.cookies.get("auth");
 
-    const { pathname } = req.nextUrl
+    const protectedPaths = [
+        "/status",
+        "/v2",
+        "/dashboard",
+        "/bgp"
+    ];
 
-    // nur geschützte Routen prüfen
-    if (protectedRoutes.some(route => pathname.startsWith(route))) {
+    const { pathname } = req.nextUrl;
 
-        const authCookie = req.cookies.get("auth")?.value
+    const isProtected = protectedPaths.some(path =>
+        pathname.startsWith(path)
+    );
 
-        if (!authCookie || authCookie !== "admin") {
-            // Weiterleitung auf Login
-            const loginUrl = req.nextUrl.clone()
-            loginUrl.pathname = "/login"
-            return NextResponse.redirect(loginUrl)
-        }
-
+    if (isProtected && !auth) {
+        return NextResponse.redirect(new URL("/login", req.url));
     }
 
-    return NextResponse.next()
+    return NextResponse.next();
 }
 
-// nur auf diese Pfade anwenden
+// Wichtig für Performance (Next.js matcher)
 export const config = {
-    matcher: ["/admin/:path*", "/status/:path*"]
-}
+    matcher: [
+        "/status/:path*",
+        "/v2/:path*",
+        "/dashboard/:path*",
+        "/bgp/:path*",
+    ],
+};
