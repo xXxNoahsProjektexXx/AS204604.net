@@ -41,5 +41,6 @@ export const config = {
         "/status/:path*",
         "/v2",
         "/v2/:path*",
+        "/dashboard/:path*",
     ],
 };
