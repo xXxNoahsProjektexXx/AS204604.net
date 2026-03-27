@@ -26,7 +26,7 @@ export default function Navbar() {
     const [loggedIn, setLoggedIn] = useState(false)
 
     useEffect(() => {
-        fetch("/api/me")
+        fetch("/api/auth/me")
             .then(res => res.json())
             .then(data => setLoggedIn(data.loggedIn))
     }, [])
@@ -90,7 +90,7 @@ export default function Navbar() {
                     {loggedIn && (
                         <button
                             onClick={async () => {
-                                await fetch("/api/logout", { method: "POST" })
+                                await fetch("/api/auth/logout", { method: "POST" })
                                 window.location.href = "/login"
                             }}
                             className="ml-3 px-3 py-2 text-sm text-red-400 hover:text-white hover:bg-red-500/10 rounded-xl transition"

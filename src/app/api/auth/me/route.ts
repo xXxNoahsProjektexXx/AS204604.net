@@ -1,13 +1,11 @@
-// /app/api/me/route.ts
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 
 export async function GET() {
-    const auth = (await cookies()).get("auth");
+    const cookieStore = await cookies();
+    const auth = cookieStore.get("auth");
 
-    if (auth?.value === "admin") {
-        return NextResponse.json({ loggedIn: true });
-    }
-
-    return NextResponse.json({ loggedIn: false });
+    return NextResponse.json({
+        loggedIn: auth?.value === "admin",
+    });
 }
