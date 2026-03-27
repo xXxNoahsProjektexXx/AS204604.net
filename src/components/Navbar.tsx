@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { motion } from "framer-motion"
-import { Activity, Globe, Info, Scale, Shield, LayoutDashboard } from "lucide-react"
+import { Activity, Globe, Info, Scale, Shield, LayoutDashboard, User } from "lucide-react"
 import { usePathname } from "next/navigation"
 import { useEffect, useState } from "react"
 
@@ -12,6 +12,7 @@ const publicLinks = [
     { name: "About", href: "/about", icon: Info },
     { name: "Legal", href: "/legal", icon: Scale },
     { name: "Kontakt", href: "/contact", icon: Info },
+    { name: "Admin Login", href: "/login", icon: User },
 ]
 
 const adminLinks = [
