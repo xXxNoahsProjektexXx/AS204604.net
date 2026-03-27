@@ -1,45 +1,71 @@
 "use client"
 
 import { useEffect, useState } from "react"
+import { motion } from "framer-motion"
+import { Activity } from "lucide-react"
 
-export default function BGPStats(){
+export default function BGPStats() {
+    const [data, setData] = useState<any>(null)
 
-    const [data,setData] = useState<any>(null)
-
-    useEffect(()=>{
-
+    useEffect(() => {
         fetch("/api/bgp/announced-prefixes")
-            .then(res=>res.json())
+            .then(res => res.json())
             .then(setData)
+    }, [])
 
-    },[])
+    if (!data) {
+        return (
+            <div className="relative p-[1px] rounded-2xl bg-gradient-to-b from-white/10 to-white/5">
+                <div className="rounded-2xl bg-[#111827] p-6 text-gray-400">
+                    Loading prefixes...
+                </div>
+            </div>
+        )
+    }
 
-    if(!data) return <p>Loading prefixes...</p>
+    return (
+        <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="relative p-[1px] rounded-2xl bg-gradient-to-b from-white/10 to-white/5"
+        >
+            <div className="rounded-2xl bg-[#111827] p-6">
 
-    return(
+                {/* Header */}
+                <div className="flex items-center justify-between mb-6">
+                    <div className="flex items-center gap-2">
+                        <Activity className="text-purple-400" size={18} />
+                        <h2 className="text-lg font-semibold text-white">
+                            Announced Prefixes
+                        </h2>
+                    </div>
 
-        <div className="border border-zinc-800 rounded-xl p-6">
+                    <span className="text-sm text-gray-400">
+                        {data.count} prefixes
+                    </span>
+                </div>
 
-            <h2 className="text-lg font-semibold mb-4">
-                Announced Prefixes
-            </h2>
+                {/* List */}
+                <div className="max-h-[300px] overflow-y-auto pr-2 space-y-2">
 
-            <p className="text-zinc-400 mb-4">
-                Total Prefixes: {data.count}
-            </p>
+                    {data.prefixes.map((p: any) => (
+                        <div
+                            key={p.prefix}
+                            className="flex items-center justify-between px-3 py-2 rounded-lg bg-[#0f172a] border border-white/5 hover:bg-[#111827] transition"
+                        >
+                            <span className="font-mono text-sm text-white">
+                                {p.prefix}
+                            </span>
 
-            <ul className="space-y-2">
+                            <span className="text-xs text-green-400">
+                                ● announced
+                            </span>
+                        </div>
+                    ))}
 
-                {data.prefixes.map((p:any)=>(
-                    <li key={p.prefix} className="font-mono text-sm">
-                        {p.prefix}
-                    </li>
-                ))}
+                </div>
 
-            </ul>
-
-        </div>
-
+            </div>
+        </motion.div>
     )
-
 }

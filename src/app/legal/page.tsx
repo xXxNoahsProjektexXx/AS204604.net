@@ -5,8 +5,6 @@ import { motion, AnimatePresence } from "framer-motion"
 import { Scale, Shield, ShieldCheck } from "lucide-react"
 import PhoneReveal from "@/components/PhoneReveal";
 
-
-
 export default function LegalPage() {
     const [tab, setTab] = useState<"imprint" | "privacy">("imprint")
 
