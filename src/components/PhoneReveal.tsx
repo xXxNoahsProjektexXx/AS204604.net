@@ -3,6 +3,7 @@ import { ShieldCheck, Loader2 } from "lucide-react"
 
 export default function PhoneReveal() {
     const [phone, setPhone] = useState<string | null>(null)
+    const [message, setMessage] = useState<string | null>(null)
     const [loading, setLoading] = useState(false)
 
     async function handleReveal() {
@@ -13,6 +14,7 @@ export default function PhoneReveal() {
             const data = await res.json()
 
             setPhone(data.phone)
+            setMessage(data.message)
         } catch (e) {
             setPhone("Error loading number")
         }
@@ -43,7 +45,7 @@ export default function PhoneReveal() {
             {phone && (
                 <a
                     href={`tel:${phone}`}
-                    className="text-purple-400 hover:underline"
+                    className="text-purple-400 hover:underline hover:text-purple-500 transition"
                 >
                     {phone}
                 </a>

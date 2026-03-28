@@ -41,7 +41,7 @@ export async function POST(req: Request) {
                     description: `New message received via **AS204604 Contact Form**`,
                     color: 0x7c3aed,
 
-                    fields: [
+                    /*fields: [
                         {
                             name: "👤 Name",
                             value: `\`${name}\``,
@@ -57,7 +57,7 @@ export async function POST(req: Request) {
                             value: message,
                             inline: false,
                         },
-                    ],
+                    ],*/
 
                     footer: {
                         text: "AS204604 Network • Contact System",
