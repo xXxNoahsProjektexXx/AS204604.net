@@ -15,6 +15,7 @@ export default function RootLayout({
 
     useEffect(() => {
         const media = window.matchMedia("(hover: hover) and (pointer: fine)")
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setIsDesktop(media.matches)
 
         const listener = () => setIsDesktop(media.matches)
