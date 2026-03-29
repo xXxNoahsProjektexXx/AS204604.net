@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import {prisma} from "@/lib/prisma";
 
 const DISCORD_WEBHOOK_URL = process.env.DISCORD_WEBHOOK_URL;
 
@@ -24,6 +25,14 @@ export async function POST(req: Request) {
             );
         }
 
+        const contact = await prisma.contact.create({
+            data: {
+                name,
+                email,
+                message,
+            },
+        });
+
         if (!DISCORD_WEBHOOK_URL) {
             return NextResponse.json(
                 { error: "Contact Form is not configured!" },
@@ -35,10 +44,12 @@ export async function POST(req: Request) {
             username: "AS204604 • NOC",
             avatar_url: "https://cdn-icons-png.flaticon.com/512/906/906334.png",
 
+            content: "<@1408739495662190694>",
+
             embeds: [
                 {
                     title: "📩 New Contact Request",
-                    description: `New message received via **AS204604 Contact Form**`,
+                    description: `New message received via **AS204604 Contact Form**\ngo to [login](https://as204604.net/dashboard)`,
                     color: 0x7c3aed,
 
                     /*fields: [
